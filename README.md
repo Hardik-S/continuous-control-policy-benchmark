@@ -20,6 +20,8 @@ This public repo packages a small, reproducible benchmark surface for comparing 
 
 The current artifact compares average return and stability across synthetic runs for three algorithms. It should be treated as a packaging and methodology proof point, not a claim that any algorithm was trained here.
 
+Run7 adds a simple risk-adjusted score, calculated as mean return divided by mean return standard deviation. It is deliberately transparent rather than mathematically elaborate, so a reviewer can see how stability changes the ranking discussion.
+
 Run:
 
 ```powershell

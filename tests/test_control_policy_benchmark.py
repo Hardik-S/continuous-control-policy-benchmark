@@ -1,7 +1,7 @@
 import unittest
 from pathlib import Path
 
-from src.control_policy_benchmark import format_table, load_runs, summarize
+from src.control_policy_benchmark import format_table, load_runs, risk_adjusted_score, summarize
 
 
 FIXTURE = Path(__file__).resolve().parents[1] / "data" / "synthetic_results.csv"
@@ -26,6 +26,12 @@ class ControlPolicyBenchmarkTests(unittest.TestCase):
 
         self.assertIn("algorithm,runs,mean_return,mean_stddev,total_steps", table)
         self.assertIn("PPO,3,", table)
+
+    def test_risk_adjusted_score_rewards_return_and_penalizes_variance(self):
+        summaries = {row.algorithm: row for row in summarize(load_runs(FIXTURE))}
+
+        self.assertGreater(risk_adjusted_score(summaries["PPO"]), risk_adjusted_score(summaries["A2C"]))
+        self.assertGreater(risk_adjusted_score(summaries["TRPO"]), risk_adjusted_score(summaries["A2C"]))
 
 
 if __name__ == "__main__":

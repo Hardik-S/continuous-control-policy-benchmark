@@ -63,11 +63,17 @@ def summarize(runs: list[BenchmarkRun]) -> list[AlgorithmSummary]:
     return sorted(summaries, key=lambda row: (-row.mean_return, row.mean_stddev, row.algorithm))
 
 
+def risk_adjusted_score(summary: AlgorithmSummary) -> float:
+    if summary.mean_stddev <= 0:
+        return summary.mean_return
+    return summary.mean_return / summary.mean_stddev
+
+
 def format_table(summaries: list[AlgorithmSummary]) -> str:
-    lines = ["algorithm,runs,mean_return,mean_stddev,total_steps"]
+    lines = ["algorithm,runs,mean_return,mean_stddev,total_steps,risk_adjusted_score"]
     for row in summaries:
         lines.append(
-            f"{row.algorithm},{row.runs},{row.mean_return:.2f},{row.mean_stddev:.2f},{row.total_steps}"
+            f"{row.algorithm},{row.runs},{row.mean_return:.2f},{row.mean_stddev:.2f},{row.total_steps},{risk_adjusted_score(row):.2f}"
         )
     return "\n".join(lines)
 
@@ -82,6 +88,7 @@ def main() -> None:
 
     print(f"rows={len(runs)}")
     print(f"top_algorithm={summaries[0].algorithm if summaries else 'none'}")
+    print(f"top_risk_adjusted={max(summaries, key=risk_adjusted_score).algorithm if summaries else 'none'}")
     print(format_table(summaries))
 
 

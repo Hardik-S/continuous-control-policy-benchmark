@@ -15,8 +15,9 @@ This repo is a public benchmark scaffold for continuous-control policy optimizat
 - `average_return`: higher is better.
 - `return_stddev`: lower is more stable.
 - `sample_steps`: synthetic count of environment interaction steps.
+- `risk_adjusted_score`: mean return divided by mean standard deviation.
 
-The first ranking sorts by average return and breaks ties by lower standard deviation. That rule is simple enough to verify and explicit enough to challenge later.
+The first ranking sorts by average return and breaks ties by lower standard deviation. Run7 adds a separate risk-adjusted score because policy optimization results are easier to discuss when return and variance are visible together. The score is not a replacement for training evidence; it is a transparent reviewer aid for the synthetic scaffold.
 
 ## Decisions
 
@@ -39,5 +40,5 @@ python -m unittest discover -s tests
 python src\control_policy_benchmark.py data\synthetic_results.csv
 ```
 
-The CLI should report the top algorithm, row count, and average-return table.
+The CLI should report the top algorithm, top risk-adjusted algorithm, row count, and average-return table.
 
