@@ -1,0 +1,11 @@
+algorithm,environment,seed,average_return,return_stddev,sample_steps
+A2C,SyntheticPendulum-v0,1,188.4,22.1,50000
+A2C,SyntheticPendulum-v0,2,181.7,24.8,50000
+A2C,SyntheticPendulum-v0,3,190.2,20.5,50000
+PPO,SyntheticPendulum-v0,1,214.6,15.3,50000
+PPO,SyntheticPendulum-v0,2,211.9,16.1,50000
+PPO,SyntheticPendulum-v0,3,219.4,14.8,50000
+TRPO,SyntheticPendulum-v0,1,205.2,12.2,50000
+TRPO,SyntheticPendulum-v0,2,201.4,13.5,50000
+TRPO,SyntheticPendulum-v0,3,207.8,11.9,50000
+
